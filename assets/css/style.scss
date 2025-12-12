@@ -1,1 +1,37 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+body, h1, h2, h3, h4, p, li {
+    font-family: 'Inter', sans-serif !important;
+    line-height: 1.55;
+}
+
+body {
+    background-color: #f7f9fb !important;
+}
+
+.main-content {
+    max-width: 900px !important;
+    padding: 25px 35px !important;
+    background: #ffffffdd;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    margin-top: 30px;
+}
+
+h1 {
+    text-align: center !important;
+    color: #004d66 !important;
+}
+
+iframe {
+    border-radius: 8px;
+    border: 1px solid #dcdcdc;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
 
