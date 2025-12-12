@@ -147,6 +147,48 @@ As a baseline, I fit a simple **logistic regression model** using a small set of
 The baseline model achieved pretty reasonable accuracy and provided interpretable coefficients showing how increases in gold and XP differential affect the log odds of winning. However, there was still room to improve performance by incorporating more features and non-linear relationships.
 
 
-## Final Model
+## **Final Model**
 
-## Fairness Analysis
+To improve on the baseline model, I built a more flexible model that could better capture more complex interactions:
+
+- I engineered additional features, like:
+  - Interactions between gold and XP differentials
+  - A combined dominance score
+  - CS related stats at 10 minutes
+- I used a random forest classifier and tuned its hyperparameters using cross-validation.
+
+### Feature Importance
+
+<iframe src="assets/model_feature_importance.html" width="850" height="600"></iframe>
+
+This feature importance plot shows that gold differential at 10 minutes is the most influential predictor for a game, followed by XP and CS related features. This aligns well with my findings earlier in the EDA: teams that secure early leads in gold and XP are much more likely to win a game
+
+### Confusion Matrix
+
+<iframe src="assets/model_confusion_matrix.html" width="850" height="600"></iframe>
+
+Thsi confusion matrix indicates that the final model improves over the baseline model in correctly predicting both wins and losses. While it is not perfect, it captures a substantial amount of the structure in the data and demonstrates that early game stats can be used to build a useful predictive system.
+
+---
+
+## **Fairness Analysis**
+
+
+I examined whether the model performs differently for teams in different early game conditions. In particular, I compared:
+
+- Teams with a **gold lead at 10 minutes**
+- Teams with a **gold deficit or even gold at 10 minutes**
+
+I looked at **precision** as the main fairness metric, since it reflects how often a positive prediction (predicting a win) is correct.
+
+### Permutation Test for Precision Difference
+
+<iframe src="assets/fairness_perm_distribution.html" width="850" height="600"></iframe>
+
+I ran a permutation test to see whether the observed difference in precision between the two groups could be explained by random chance. The position of the observed statistic relative to the null distribution provides evidence about whether the model is systematically more precise for one group than the other.
+
+### Metrics by Group
+
+<iframe src="assets/fairness_metrics_comparison.html" width="850" height="600"></iframe>
+
+This plot compares multiple metrics such as precision, recall, and accuracy across the gold lead and gold deficit groups. I used these results to discuss whether the model treats the two groups similarly or whether there are meaningful performance gaps. This helps highlight potential fairness concerns when deploying such a model in practice.
