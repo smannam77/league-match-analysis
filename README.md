@@ -1,5 +1,6 @@
 
 # League of Legends Early Game Advantage Analysis
+Predicting match outcomes from early-game performance metrics in the 2022 LoL esports dataset.
 
 ## Introduction
 
