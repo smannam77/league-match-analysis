@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="assets/custom.css">
 
 # League of Legends Early Game Advantage Analysis
 
