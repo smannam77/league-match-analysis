@@ -1,2 +1,17 @@
-# league-match-analysis
-Predicting League of Legends Match Outcomes from Early Game Performance
+# League of Legends Early Game Advantage Analysis
+
+## Introduction
+
+## Data Cleaning and Exploratory Data Analysis
+
+## Assessment of Missingness
+
+## Hypothesis Testing
+
+## Framing a Prediction Problem
+
+## Baseline Model
+
+## Final Model
+
+## Fairness Analysis
