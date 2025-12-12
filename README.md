@@ -2,7 +2,7 @@
 # League of Legends Early Game Advantage Analysis
 Predicting match outcomes from early-game performance metrics in the 2022 LoL esports dataset.
 
-## Introduction
+## **Introduction**
 
 League of Legends is a 5v5 strategy game with where early game advantages such as kills or gold 
 can snowball into potential wins. In competitive games, teams closely track performance metrics such as gold differential, XP lead, CS advantage, and kill counts to assess their standing at 
@@ -80,7 +80,7 @@ CS (creep score) differential also tends to be higher for winning teams, though 
 
 ### Relationships Between Early-Game Features
 
-**Gold vs XP Differential (Colored by Result)**
+**Gold vs XP Differential**
 
 <iframe src="assets/eda_gold_vs_xp_scatter.html" width="850" height="600"></iframe>
 
@@ -89,7 +89,7 @@ Gold and XP differentials are positively correlated: teams that lead in one ofte
 
 
 
-## Assessment of Missingness
+## **Assessment of Missingness**
 
 I examined missing values in the dataset to understand whether they were likely to be random or systematic.
 
@@ -102,7 +102,7 @@ I examined missing values in the dataset to understand whether they were likely 
 These results informed my decision to either filter out the rows with missing values or avoid using certain columns in  modeling, depending on how strongly the missingness seemed to be tied to other features.
 
 
-## Hypothesis Testing
+## **Hypothesis Testing**
 
 I  tested whether having an early gold or XP lead at 10 minutes is associated with a higher chance of winning a game. 
 
@@ -125,11 +125,28 @@ I repeated a similar analysis using XP differential at 10 minutes.
 
 <iframe src="assets/hypothesis_xp_perm.html" width="850" height="600"></iframe>
 
-Again, the observed difference in win rates between teams with an XP lead and those without is unlikely under the null distribution, suggesting that early XP advantages are also predictive of eventual win.
+As said before, the observed difference in win rates between teams with an XP lead and those without is unlikely under the null distribution, suggesting that early XP advantages are also predictive of eventual win.
 
-## Framing a Prediction Problem
+## **Framing a Prediction Problem**
 
-## Baseline Model
+Based on the EDA and hypothesis tests, I framed a supervised learning problem:
+
+- **Prediction task:** Predict whether a team will **win or lose** the match.
+- **Response variable:** A binary indicator of whether the team won.
+- **Features:** Early-game statistics available at 10 minutes, including:
+  - Gold differential
+  - XP differential
+  - CS differential
+  - Kills at 10 minutes and related engineered features
+- **Timing constraint:** All features are restricted to information that would be available at the 10-minute mark, mimicking an in-game prediction case.
+- **Primary evaluation metric:** Accuracy, since the classes are relatively balanced and accuracy is easy to interpret. I also examined other metrics such as precision, recall, and F1 for additional context.
+
+## **Baseline Model**
+
+As a baseline, I fit a simple **logistic regression model** using a small set of core features like gold and XP differentials at 10 minutes. I used a scikit-learn pipeline to handle preprocessing and model fitting in a clean, efficent, and modular way.
+
+The baseline model achieved reasonable accuracy and provided interpretable coefficients showing how increases in gold and XP differential affect the log-odds of winning. However, there was still room to improve performance by incorporating more features and non-linear relationships.
+
 
 ## Final Model
 
