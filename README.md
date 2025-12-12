@@ -4,9 +4,8 @@ Predicting match outcomes from early-game performance metrics in the 2022 LoL es
 
 ## Introduction
 
-League of Legends is a competitive 5v5 strategy game where early advantages such as kills or gold 
-can snowball into decisive wins. In professional play, teams closely track performance metrics such as 
-gold differential, XP lead, CS advantage, and kill counts to assess their standing at 
+League of Legends is a 5v5 strategy game with where early game advantages such as kills or gold 
+can snowball into potential wins. In competitive games, teams closely track performance metrics such as gold differential, XP lead, CS advantage, and kill counts to assess their standing at 
 various stages of the game.
 
 This project investigates whether **10-minute early-game stats** can predict the *final 
@@ -14,8 +13,8 @@ outcome* of a match. Using match data from the 2022 season, I perform explorator
 analysis, run hypothesis tests, build predictive models, and evaluate fairness across 
 different team conditions.
 
-The question I am looking at in this analysis is:
-How well do early game advantages like gold, XP, CS, or kills at the 10 minute mark correlate with the outcome of the game?
+The question I am looking at in this analysis is:\
+**How well do early game advantages like gold, XP, CS, or kills at the 10 minute mark correlate with the outcome of the game?**
 
 
 ## Data Cleaning and Exploratory Data Analysis
