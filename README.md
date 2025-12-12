@@ -5,7 +5,7 @@ Predicting match outcomes from early game performance metrics in the 2022 LoL es
 
 ## **Introduction**
 
-League of Legends is a very popular 5v5 strategy game with where early game advantages such as kills or gold can snowball into potential wins. In competitive games, teams closely track performance metrics such as gold differential, XP lead, CS advantage, and kill counts to assess their standing at 
+League of Legends is a very popular 5v5 strategy game where early game advantages such as kills or gold can snowball into potential wins. In competitive games, teams closely track performance metrics such as gold differential, XP lead, CS advantage, and kill counts to assess their standing at 
 various stages of the game.
 
 This project investigates whether **10 minute early game stats** can predict the *final 
@@ -84,7 +84,7 @@ CS (creep score) differential also tends to be higher for winning teams, though 
 
 <iframe src="assets/eda_gold_vs_xp_scatter.html" width="850" height="600"></iframe>
 
-Gold and XP differentials are positively correlated: teams that lead in one often lead in the other. Wins tend to cluster in the upper ight region, where teams have both a gold and XP advantage. This motivates using multiple early game stats together in a predictive model.
+Gold and XP differentials are positively correlated: teams that lead in one often lead in the other. Wins tend to cluster in the upper right region, where teams have both a gold and XP advantage. This motivates using multiple early game stats together in a predictive model.
 
 
 
@@ -93,7 +93,7 @@ Gold and XP differentials are positively correlated: teams that lead in one ofte
 
 I examined missing values in the dataset to understand whether they were likely to be random or systematic.
 
-- I identified columns with non trivial amounts of missing data and focused on those most relevant to early game stats.
+- I identified columns with non-trivial amounts of missing data and focused on those most relevant to early game stats.
 - I considered whether certain variables could be **Not Missing At Random (NMAR)** based on how the data is generated. For example, fields that might only be recorded under specific conditions.
 - To assess whether missingness in a particular column depended on another variable, I ran permutation tests:
   - In one case, I found evidence that missingness *does* depend on another column, suggesting **Missing At Random (MAR)** behavior rather than completely independent missingness.
@@ -124,8 +124,7 @@ The observed difference in win rates lies far in the tail of the null distributi
 I repeated a similar analysis using XP differential at 10 minutes.
 
 <iframe src="assets/hypothesis_xp_perm.html" width="850" height="600"></iframe>
-
-As I said before, the observed difference in win rates between teams with an XP lead and those without is unlikely under the null distribution, suggesting that early XP advantages are also predictive of eventual win.
+Similarly, the observed difference in win rates between teams with an XP lead and those without is unlikely under the null distribution, suggesting that early XP advantages are also predictive of eventual win.
 
 ## **Framing a Prediction Problem**
 
@@ -143,7 +142,7 @@ Based on the EDA and hypothesis tests, I framed a supervised learning problem:
 
 ## **Baseline Model**
 
-As a baseline, I fit a simple **logistic regression model** using a small set of core features like gold and XP differentials at 10 minutes. I used a scikit-learn pipeline to handle preprocessing and model fitting in a clean, efficent, and modular way.
+As a baseline, I fit a simple **logistic regression model** using a small set of core features like gold and XP differentials at 10 minutes. I used a scikit-learn pipeline to handle preprocessing and model fitting in a clean, efficient, and modular way.
 
 The baseline model achieved pretty reasonable accuracy and provided interpretable coefficients showing how increases in gold and XP differential affect the log odds of winning. However, there was still room to improve performance by incorporating more features and non-linear relationships.
 
@@ -168,7 +167,7 @@ This feature importance plot shows that gold differential at 10 minutes is the m
 
 <iframe src="assets/model_confusion_matrix.html" width="850" height="600"></iframe>
 
-Thsi confusion matrix indicates that the final model improves over the baseline model in correctly predicting both wins and losses. While it is not perfect, it captures a substantial amount of the structure in the data and demonstrates that early game stats can be used to build a useful predictive system.
+This confusion matrix indicates that the final model improves over the baseline model in correctly predicting both wins and losses. While it is not perfect, it captures a substantial amount of the structure in the data and demonstrates that early game stats can be used to build a useful predictive system.
 
 ---
 
