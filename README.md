@@ -86,12 +86,46 @@ CS (creep score) differential also tends to be higher for winning teams, though 
 
 Gold and XP differentials are positively correlated: teams that lead in one often lead in the other. Wins tend to cluster in the upper-right region, where teams have both a gold and XP advantage. This motivates using multiple early-game stats together in a predictive model.
 
----
+
 
 
 ## Assessment of Missingness
 
+I examined missing values in the dataset to understand whether they were likely to be random or systematic.
+
+- I identified columns with non-trivial amounts of missing data and focused on those most relevant to early-game stats.
+- I considered whether certain variables could be **Not Missing At Random (NMAR)** based on how the data is generated. For example, fields that might only be recorded under specific conditions.
+- To assess whether missingness in a particular column depended on another variable, I ran permutation tests:
+  - In one case, I found evidence that missingness *does* depend on another column, suggesting **Missing At Random (MAR)** behavior rather than completely independent missingness.
+  - In another case, the permutation test supported the idea that missingness is independent of the chosen variable.
+
+These results informed my decision to either filter out the rows with missing values or avoid using certain columns in  modeling, depending on how strongly the missingness seemed to be tied to other features.
+
+
 ## Hypothesis Testing
+
+I  tested whether having an early gold or XP lead at 10 minutes is associated with a higher chance of winning a game. 
+
+### Gold Lead vs No Gold Lead
+
+I split teams into two groups:
+
+- Teams with a **positive gold differential** at 10 minutes.
+- Teams with a **gold deficit or even gold** at 10 minutes.
+
+I used the difference in win rates between these two groups as the test statistic and ran the permutation test.
+
+<iframe src="assets/hypothesis_gold_perm.html" width="850" height="600"></iframe>
+
+The observed difference in win rates lies far in the tail of the null distribution, indicating that such a large gap is very unlikely to occur by random chance. This provides strong evidence that having an early gold lead is associated with a higher probability of winning a game.
+
+### XP Lead vs No XP Lead
+
+I repeated a similar analysis using XP differential at 10 minutes.
+
+<iframe src="assets/hypothesis_xp_perm.html" width="850" height="600"></iframe>
+
+Again, the observed difference in win rates between teams with an XP lead and those without is unlikely under the null distribution, suggesting that early XP advantages are also predictive of eventual win.
 
 ## Framing a Prediction Problem
 
